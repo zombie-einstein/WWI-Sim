@@ -12,12 +12,14 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add directory="units" />
 					<Add directory="SDL" />
 					<Add directory="maths" />
 					<Add directory="map" />
 					<Add directory="controls" />
+					<Add directory="UI" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -27,6 +29,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="UI" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,6 +37,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="`sdl-config --cflags`" />
 		</Compiler>
@@ -51,6 +55,12 @@
 		<Unit filename="SDL/spriteSheet.h" />
 		<Unit filename="SDL/textsprite.cpp" />
 		<Unit filename="SDL/textsprite.h" />
+		<Unit filename="UI/button.cpp" />
+		<Unit filename="UI/button.h" />
+		<Unit filename="UI/menu.cpp" />
+		<Unit filename="UI/menu.h" />
+		<Unit filename="UI/ui_element.cpp" />
+		<Unit filename="UI/ui_element.h" />
 		<Unit filename="controls/keyboard.cpp" />
 		<Unit filename="controls/keyboard.h" />
 		<Unit filename="main.cpp" />

@@ -14,7 +14,6 @@ class button: public UI_element{
 
         button();
 
-        //button( const button& other );
         // Initialize button with contained text and screen to be rendered to
         // Method then loads SDL textsprite from font file
         button( std::string t, screen* r );

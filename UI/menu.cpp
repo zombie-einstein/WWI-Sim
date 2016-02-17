@@ -1,5 +1,5 @@
 #include "menu.h"
-
+#include  <iostream>
 menu::menu( std::string t, screen* r ){
 
     renderScreen = r;
@@ -16,30 +16,31 @@ menu::menu( std::string t, screen* r ){
 
 }
 
-menu::~menu()
-{
-    //dtor
+menu::~menu(){
+    // Free title texture
+    title.free();
+    // Free all text textures associated with buttons
+    for( std::vector<button>::iterator it = buttonList.begin() ; it != buttonList.end(); ++it ) {
+        // Make all buttons same width
+        it->text.free();
+
+    }
 }
 
 void menu::addButton( std::string t ){
 
-    button newButton;
+    button newButton( t, renderScreen);
     // Set button location relative to corner of menu
     newButton.setLocation( vec( padding.x/2, dimensions.y ) );
+
     // Push button to vector
     buttonList.push_back( newButton );
 
-    //buttonList = newButton;
-    buttonList.back().renderScreen = renderScreen;
-    // Load text NOTE: This is kind of cluncky, push_back could be used but buttons
-    // then need a better copy constructor to properly copy the font texture
-    buttonList.back().loadText( t );
-    // Expand menu to accomodate new button
-    dimensions.y += buttonList.back().dimensions.y + padding.y/2;
+    dimensions.y += newButton.dimensions.y + padding.y/2;
     // If new button is wider than current menu then resize
-    if( (buttonList.back().dimensions.x + padding.x) > dimensions.x ){
+    if( (newButton.dimensions.x + padding.x) > dimensions.x ){
 
-        dimensions.x = buttonList.back().dimensions.x + padding.x;
+        dimensions.x = newButton.dimensions.x + padding.x;
 
     }
 }
@@ -49,10 +50,12 @@ void menu::render( int x, int y ){
     renderBox( x, y );
     // Render title at top of box
     title.render( x+padding.x/2, y+padding.y/2, renderScreen->renderer);
-    // Render all button elements
-    //for( auto &i : buttonList ) {
+    // Render all button elements in vector
+    for( std::vector<button>::iterator it = buttonList.begin() ; it != buttonList.end(); ++it ) {
+        // Make all buttons same width
+        it->dimensions.x = dimensions.x-padding.x;
+        // Draw button and text
+        it->render( x+it->location.x, y+it->location.y );
 
-        //buttonList[0].render( x+buttonList[0].location.x, y+buttonList[0].location.y );
-        //buttonList[1].render( x+buttonList[1].location.x, y+buttonList[1].location.y );
-    //}
+    }
 }

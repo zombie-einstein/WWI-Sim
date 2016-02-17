@@ -10,6 +10,8 @@ screen::~screen(){
     // Destror window and renderer
     SDL_DestroyRenderer( renderer );
 	SDL_DestroyWindow( window );
+	TTF_CloseFont(screenFontLarge);
+	TTF_CloseFont(screenFontSmall);
 	// Dereference pointers
 	renderer    = NULL;
 	window      = NULL;
@@ -81,9 +83,14 @@ bool screen::loadFonts( const char* path ){
 }
 
 void screen::clean(){
+
+    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear( renderer );
+
 }
 
 void screen::update(){
+
     SDL_RenderPresent( renderer );
+
 }

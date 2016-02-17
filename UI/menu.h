@@ -13,7 +13,7 @@ class menu:public UI_element{
         ~menu();
 
         // Vector of buttons in menu
-        std::vector< button > buttonList = std::vector<button>();
+        std::vector< button > buttonList ;
         //button buttonList;
         // Title texture
         textSprite title;

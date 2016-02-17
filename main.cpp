@@ -31,8 +31,10 @@ int UI_element::UIBackGroundColor[4] = { 200, 200, 200, 255 };
 int main ( int argc, char* args[] )
 {
     if ( startSDL() ){
+
             // Initialize a screen class
             screen mainScreen;
+
             // Create screen
             mainScreen.init("SIM", 1280, 480);
 
@@ -50,13 +52,10 @@ int main ( int argc, char* args[] )
             textSprite smallExample;
             smallExample.loadFromRenderedText("small text example", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFontSmall );
 
-            button buttons[2] = { button ( "Button", &mainScreen ), button( "Button B", &mainScreen ) };
+            menu testMenu( "Test Menu", &mainScreen );
+            testMenu.addButton("A Button");
+            testMenu.addButton("A Longer Button");
 
-            //testButton.setLocation(vec(10,10));
-
-            menu testMenu( "Menu", &mainScreen );
-            testMenu.addButton("A button");
-            testMenu.addButton("A longer button");
             //Main loop flag
 			bool quit = false;
 
@@ -108,7 +107,6 @@ int main ( int argc, char* args[] )
 
                 title.render(50,50,mainScreen.renderer);
                 smallExample.render(50,75,mainScreen.renderer);
-
 
                 testMenu.render(50,150);
 

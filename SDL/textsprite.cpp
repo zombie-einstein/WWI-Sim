@@ -5,7 +5,6 @@ textSprite::textSprite(){
     width   = 0;
     height  = 0;
 }
-//{ ctor }
 
 textSprite::~textSprite(){}
 
@@ -15,7 +14,7 @@ bool textSprite::loadFromRenderedText( std::string text, SDL_Color textColor, SD
     free();
 
     //Render text surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid( font, text.c_str(), textColor );
+    SDL_Surface* textSurface = TTF_RenderText_Blended( font, text.c_str(), textColor );
 
     if( textSurface == NULL )
     {

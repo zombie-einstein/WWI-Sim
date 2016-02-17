@@ -2,12 +2,6 @@
 
 button::button(){}
 
-//button::button( const button& other ){
-
-
-
-//}
-
 button::button( std::string t, screen* r ){
 
     renderScreen = r;
@@ -17,7 +11,7 @@ button::button( std::string t, screen* r ){
 }
 
 button::~button(){
-    //dtor
+
 }
 
 void button::loadText( std::string t ){

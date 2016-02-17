@@ -10,7 +10,7 @@ spriteSheet::spriteSheet(){
 }
 
 spriteSheet::~spriteSheet(){
-    free();
+
 }
 
 bool spriteSheet::loadFromFile( std::string path, SDL_Renderer* renderer ){
