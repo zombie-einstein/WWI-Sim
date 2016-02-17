@@ -14,6 +14,7 @@
 #include "hexspritelist.h"
 #include "keyboard.h"
 #include "textsprite.h"
+#include "menu.h"
 
 // Define SDL control functions
 bool startSDL();
@@ -22,6 +23,10 @@ void stopSDL();
 // Static hex width and height for sprite sheet
 int hexclip::clipWidth  = 100;
 int hexclip::clipHeight = 58;
+// Padding of UI elements (total)
+vec UI_element::padding(10,10);
+// UI background color (RGBA)
+int UI_element::UIBackGroundColor[4] = { 200, 200, 200, 255 };
 
 int main ( int argc, char* args[] )
 {
@@ -36,12 +41,22 @@ int main ( int argc, char* args[] )
             hexSpriteList units( "sprites/unit_hex.png", 4, mainScreen.renderer );
 
             // Load desired font to main screen
-            mainScreen.loadFont("sprites/BOMBARD.ttf");
+            mainScreen.loadFonts("sprites/BOMBARD.ttf");
 
             // Make text sprite (white)
             textSprite title;
-            title.loadFromRenderedText("WWI SIM v0.1", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFont );
+            title.loadFromRenderedText("WWI SIM v0.1", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFontLarge );
 
+            textSprite smallExample;
+            smallExample.loadFromRenderedText("small text example", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFontSmall );
+
+            button buttons[2] = { button ( "Button", &mainScreen ), button( "Button B", &mainScreen ) };
+
+            //testButton.setLocation(vec(10,10));
+
+            menu testMenu( "Menu", &mainScreen );
+            testMenu.addButton("A button");
+            testMenu.addButton("A longer button");
             //Main loop flag
 			bool quit = false;
 
@@ -92,6 +107,10 @@ int main ( int argc, char* args[] )
                 testMap.render(offsets);
 
                 title.render(50,50,mainScreen.renderer);
+                smallExample.render(50,75,mainScreen.renderer);
+
+
+                testMenu.render(50,150);
 
                 mainScreen.update();
 

@@ -58,16 +58,25 @@ bool screen::init( const char* label, int width, int height ){
     return success;
 }
 
-bool screen::loadFont( const char* path ){
+bool screen::loadFonts( const char* path ){
 
     // Loading success flag
     bool success = true;
 
-    // Load font
-    screenFont = TTF_OpenFont( path, 30 );
-    if ( screenFont == NULL ){
-        printf( "Failed to load font: ", path );
+    // Load small font
+    screenFontSmall = TTF_OpenFont( path, 15 );
+    if ( screenFontSmall == NULL ){
+        printf( "Failed to load small font: ", path );
+        success = false;
     }
+
+    // Load font
+    screenFontLarge = TTF_OpenFont( path, 30 );
+    if ( screenFontLarge == NULL ){
+        printf( "Failed to load large font: ", path );
+        success = false;
+    }
+
     return success;
 }
 

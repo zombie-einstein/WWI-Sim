@@ -19,13 +19,16 @@ class screen{
         // Window surface
         SDL_Renderer* renderer;
 
-        //Globally used font
-        TTF_Font* screenFont = NULL;
+        //Small font for screen
+        TTF_Font* screenFontSmall = NULL;
+
+        //Large font for screen
+        TTF_Font* screenFontLarge = NULL;
 
         // Initialize screen
         bool init( const char* label, int width, int height );
 
-        bool loadFont( const char* path );
+        bool loadFonts( const char* path );
 
         // Clear and update screen
         void clean();
