@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1454510723 source:/home/jordan/Projects/WWI_sim_SDL/controls/keyboard.cpp
+1456916715 source:/home/jordan/Projects/WWI_sim_SDL/controls/keyboard.cpp
 	"keyboard.h"
 
 1454974177 /home/jordan/Projects/WWI_sim_SDL/controls/keyboard.h
@@ -194,21 +194,23 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454536910 /home/jordan/Projects/WWI_sim_SDL/maths/vec.h
+1455980083 /home/jordan/Projects/WWI_sim_SDL/maths/vec.h
 
-1455679800 source:/home/jordan/Projects/WWI_sim_SDL/main.cpp
+1456943249 source:/home/jordan/Projects/WWI_sim_SDL/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<iostream>
 	<vector>
 	<string>
 	<cmath>
+	<functional>
 	"map.h"
 	"screen.h"
 	"hexspritelist.h"
 	"keyboard.h"
 	"textsprite.h"
-	"menu.h"
+	"vert_menu.h"
+	"mouse.h"
 
 1454618980 /home/jordan/Projects/WWI_sim_SDL/map/map.h
 	<vector>
@@ -244,10 +246,11 @@
 	<SDL2/SDL.h>
 	<SDL_image.h>
 
-1455662367 /home/jordan/Projects/WWI_sim_SDL/SDL/screen.h
+1456916748 /home/jordan/Projects/WWI_sim_SDL/SDL/screen.h
 	<SDL2/SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
+	"vec.h"
 
 1387745243 /usr/include/SDL/SDL_ttf.h
 	"SDL.h"
@@ -272,7 +275,7 @@
 	"hexvec.h"
 	"vec.h"
 
-1454602279 source:/home/jordan/Projects/WWI_sim_SDL/maths/vec.cpp
+1456922567 source:/home/jordan/Projects/WWI_sim_SDL/maths/vec.cpp
 	"vec.h"
 	"hexvec.h"
 
@@ -282,7 +285,7 @@
 1454600498 source:/home/jordan/Projects/WWI_sim_SDL/SDL/hexspritelist.cpp
 	"hexspritelist.h"
 
-1455747042 source:/home/jordan/Projects/WWI_sim_SDL/SDL/screen.cpp
+1456916880 source:/home/jordan/Projects/WWI_sim_SDL/SDL/screen.cpp
 	"screen.h"
 
 1455739933 source:/home/jordan/Projects/WWI_sim_SDL/SDL/SDL_control.cpp
@@ -308,20 +311,35 @@
 	"screen.h"
 	"vec.h"
 
-1455740313 source:/home/jordan/Projects/WWI_sim_SDL/UI/button.cpp
+1456932486 source:/home/jordan/Projects/WWI_sim_SDL/UI/button.cpp
 	"button.h"
 
-1455739968 /home/jordan/Projects/WWI_sim_SDL/UI/button.h
+1456933254 /home/jordan/Projects/WWI_sim_SDL/UI/button.h
 	<SDL2/SDL.h>
 	<string>
+	<functional>
 	"ui_element.h"
 	"textsprite.h"
 
-1455747447 source:/home/jordan/Projects/WWI_sim_SDL/UI/menu.cpp
+1455964322 source:/home/jordan/Projects/WWI_sim_SDL/UI/menu.cpp
 	"menu.h"
 	<iostream>
 
-1455681573 /home/jordan/Projects/WWI_sim_SDL/UI/menu.h
+1455964208 /home/jordan/Projects/WWI_sim_SDL/UI/menu.h
 	<vector>
 	"button.h"
+
+1456926969 /home/jordan/Projects/WWI_sim_SDL/UI/vert_menu.h
+	<vector>
+	"button.h"
+
+1456932600 source:/home/jordan/Projects/WWI_sim_SDL/UI/vert_menu.cpp
+	"vert_menu.h"
+	<iostream>
+
+1456922267 source:/home/jordan/Projects/WWI_sim_SDL/controls/mouse.cpp
+	"mouse.h"
+
+1456922272 /home/jordan/Projects/WWI_sim_SDL/controls/mouse.h
+	"vec.h"
 

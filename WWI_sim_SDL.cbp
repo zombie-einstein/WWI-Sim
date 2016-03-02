@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-std=c++11" />
+					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add directory="units" />
 					<Add directory="SDL" />
@@ -57,12 +58,14 @@
 		<Unit filename="SDL/textsprite.h" />
 		<Unit filename="UI/button.cpp" />
 		<Unit filename="UI/button.h" />
-		<Unit filename="UI/menu.cpp" />
-		<Unit filename="UI/menu.h" />
 		<Unit filename="UI/ui_element.cpp" />
 		<Unit filename="UI/ui_element.h" />
+		<Unit filename="UI/vert_menu.cpp" />
+		<Unit filename="UI/vert_menu.h" />
 		<Unit filename="controls/keyboard.cpp" />
 		<Unit filename="controls/keyboard.h" />
+		<Unit filename="controls/mouse.cpp" />
+		<Unit filename="controls/mouse.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="map/map.cpp" />
 		<Unit filename="map/map.h" />

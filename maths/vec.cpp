@@ -54,3 +54,15 @@ vec vec::operator*( int a){
 
     return temp;
 }
+
+bool vec::operator>( vec& object ){
+
+    return ( x > object.x && y > object.y );
+
+}
+
+bool vec::operator<( vec& object ){
+
+    return ( x < object.x && y < object.y );
+
+}

@@ -1,8 +1,10 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+// Libraries
 #include <SDL2/SDL.h>
 #include <string>
+#include <functional>
 // Inheritance
 #include "ui_element.h"
 // Dependencies
@@ -20,12 +22,24 @@ class button: public UI_element{
 
         ~button();
 
+        // Texture with button text
         textSprite text;
+
+        // Declare pointer to action of button
+        //void (*click)();
+        std::function<void()> click;
 
         // Load an appropriatte text texture and resize the button
         void loadText( std::string t );
+
+        // Render button ( at location )
+        void render();
+
         // Render button as an SDL primative with text
-        void render( int x, int y );
+        void render( vec a );
+
+        // Checks wether a mouse click is over button and acts appropriately
+        bool mouseClick( vec mousPos );
 
     protected:
     private:

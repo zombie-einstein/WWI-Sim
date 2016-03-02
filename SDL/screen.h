@@ -5,6 +5,8 @@
 #include<SDL_image.h>
 #include <SDL_ttf.h>
 
+#include "vec.h"
+
 class screen{
 
     public:
@@ -12,6 +14,9 @@ class screen{
         screen();
 
         ~screen();
+
+        // Screen dimensions (set when initialized)
+        vec dimensions;
 
         // The Window to render to
         SDL_Window* window;

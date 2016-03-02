@@ -24,6 +24,9 @@ bool screen::init( const char* label, int width, int height ){
     // Initialization flag
     bool success = true ;
 
+    dimensions.x = width;
+    dimensions.y = height;
+
     // create window
     window = SDL_CreateWindow(label, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN );
     if( window == NULL ){

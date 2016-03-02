@@ -1,6 +1,6 @@
-#include "menu.h"
+#include "vert_menu.h"
 #include  <iostream>
-menu::menu( std::string t, screen* r ){
+vert_menu::vert_menu( std::string t, screen* r ){
 
     renderScreen = r;
 
@@ -16,7 +16,7 @@ menu::menu( std::string t, screen* r ){
 
 }
 
-menu::~menu(){
+vert_menu::~vert_menu(){
     // Free title texture
     title.free();
     // Free all text textures associated with buttons
@@ -27,7 +27,7 @@ menu::~menu(){
     }
 }
 
-void menu::addButton( std::string t ){
+void vert_menu::addButton( std::string t ){
 
     button newButton( t, renderScreen);
     // Set button location relative to corner of menu
@@ -45,17 +45,47 @@ void menu::addButton( std::string t ){
     }
 }
 
-void menu::render( int x, int y ){
+void vert_menu::render(){
+
     // Render containing menu box
-    renderBox( x, y );
+    renderBox( location.x, location.y );
     // Render title at top of box
-    title.render( x+padding.x/2, y+padding.y/2, renderScreen->renderer);
+    title.render( location.x+padding.x/2, location.y+padding.y/2, renderScreen->renderer);
     // Render all button elements in vector
     for( std::vector<button>::iterator it = buttonList.begin() ; it != buttonList.end(); ++it ) {
         // Make all buttons same width
         it->dimensions.x = dimensions.x-padding.x;
         // Draw button and text
-        it->render( x+it->location.x, y+it->location.y );
+        it->render( vec( location.x+it->location.x, location.y+it->location.y ) );
 
     }
+}
+
+void vert_menu::render( vec a ){
+
+    // Render containing menu box
+    renderBox( a.x, a.y );
+    // Render title at top of box
+    title.render( a.x+padding.x/2, a.y+padding.y/2, renderScreen->renderer);
+    // Render all button elements in vector
+    for( std::vector<button>::iterator it = buttonList.begin() ; it != buttonList.end(); ++it ) {
+        // Make all buttons same width
+        it->dimensions.x = dimensions.x-padding.x;
+        // Draw button and text
+        it->render( vec( a.x+it->location.x, a.y+it->location.y ) );
+    }
+}
+
+bool vert_menu::mouseCheck( vec mousePos ){
+
+    vec boundary = location + dimensions;
+
+    if (  mousePos > location && mousePos < boundary ){
+
+        for( std::vector<button>::iterator it = buttonList.begin() ; it != buttonList.end(); ++it ){
+            if( it->mouseClick( mousePos - location ) ){ std::cout << "Button Clicked \n"; return true; }
+        }
+
+    }
+    return false;
 }

@@ -26,10 +26,32 @@ void button::loadText( std::string t ){
 
 }
 
-void button::render( int x, int y ){
+void button::render(){
 
-    renderBox( x, y );
+    renderBox( location.x, location.y );
     // Render appropriate text inside button box
-    text.render( x+padding.x/2, y+padding.y/2, renderScreen->renderer );
+    text.render( location.x+padding.x/2, location.y+padding.y/2, renderScreen->renderer );
 
 }
+
+void button::render( vec a ){
+
+     renderBox( a.x, a.y );
+    // Render appropriate text inside button box
+    text.render( a.x+padding.x/2, a.y+padding.y/2, renderScreen->renderer );
+
+}
+
+bool button::mouseClick( vec mousePos ){
+
+    vec boundary = location+dimensions;
+
+    if ( mousePos > location && mousePos < boundary ){
+
+        click();
+        return true;
+
+    }
+    else { return false; }
+}
+

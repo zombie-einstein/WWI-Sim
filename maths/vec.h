@@ -25,6 +25,10 @@ class vec
 
         vec operator * ( int );
 
+        bool operator > ( vec& object );
+
+        bool operator < ( vec& object );
+
     protected:
     private:
 };
