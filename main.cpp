@@ -10,6 +10,7 @@
 #include <string>
 #include <cmath>
 #include <functional>
+#include <math.h>
 #include "map.h"
 #include "screen.h"
 #include "hexspritelist.h"
@@ -17,6 +18,8 @@
 #include "textsprite.h"
 #include "vert_menu.h"
 #include "mouse.h"
+
+#define PI 3.14159265
 
 // Define SDL control functions
 bool startSDL();
@@ -50,12 +53,23 @@ int main ( int argc, char* args[] )
 
             // Vector of hex direction offsets
             // for this given hex size
-            vec offsets[4];
 
-            offsets[0] = vec(  0 , 200); // Location of origin i.e. cell(0,0) on screen
-            offsets[1] = vec(  62, 36 ); // Moves one cell east
-            offsets[2] = vec(  22,-49 ); // Moves one cell north-east
-            offsets[3] = vec(  85,-13 ); // Moves one cell north-west
+            double thirtyDegree = 30*PI/180;
+
+            double isometricScaling = hexclip::clipWidth / ( (sqrt(3)+1)*cos(thirtyDegree) );
+
+            vec offsets[5];
+
+            // Location of origin
+            offsets[0] = vec( 0 , 200);
+            // Offset from origin to top corner of sprite
+            offsets[1] = vec( 0.5*isometricScaling*cos(thirtyDegree), -1.5*isometricScaling*sin(thirtyDegree) );
+            // Translate one cell east
+            offsets[2] = vec( sqrt(3)*isometricScaling*cos(thirtyDegree), sqrt(3)*isometricScaling*sin(thirtyDegree) );
+            // Translate one cell north-east
+            offsets[3] = vec( 0.5*(3+sqrt(3))*isometricScaling*cos(thirtyDegree), -0.5*(3-sqrt(3))*isometricScaling*sin(thirtyDegree) );
+            // Translate one cell north-west
+            offsets[4] = vec( 0.5*(3-sqrt(3))*isometricScaling*cos(thirtyDegree), -0.5*(3+sqrt(3))*isometricScaling*sin(thirtyDegree) );
 
             // Make text sprite (white)
             textSprite title;
@@ -125,6 +139,29 @@ int main ( int argc, char* args[] )
 					if ( event.type == SDL_MOUSEBUTTONDOWN ){
 
                         testMenu.mouseCheck( mousePos );
+                        mousePos = vec ( mousePos.x - offsets[0].x, offsets[0].y - mousePos.y );
+
+                        double newMousePosX = mousePos.x/isometricScaling;
+                        double newMousePosY = mousePos.y/isometricScaling;
+
+                        newMousePosX = 0.5*( newMousePosX/cos(thirtyDegree) - newMousePosY/sin(thirtyDegree) );
+                        newMousePosY = 0.5*( newMousePosX/cos(thirtyDegree) + newMousePosY/sin(thirtyDegree) );
+
+                        double findEastX = -newMousePosX/sqrt(3)+newMousePosY-0.5;
+                        double findEastY = 2*newMousePosX/sqrt(3);
+
+                        double findNWestX = newMousePosX/sqrt(3)+newMousePosY-0.5;
+                        double findNWestY = newMousePosX/sqrt(3)-newMousePosY+0.5;
+
+                        vec mouseGridVec;
+
+                        mouseGridVec.x = floor( ( floor(findEastY)-floor(findEastX) )/3 );
+                        mouseGridVec.y = floor( ( floor(findNWestX)-floor(findNWestY) )/3 );
+
+                        std::cout << "(" << floor(findEastX) << "," << floor(findEastY) << ")";
+                        std::cout << "(" << floor(findNWestX) << "," << floor(findNWestY) << ")";
+                        std::cout << "(" << mouseGridVec.x << "," << mouseGridVec.y << ")\n";
+
 					}
 				}
 
@@ -137,7 +174,6 @@ int main ( int argc, char* args[] )
                 smallExample.render(50,75,mainScreen.renderer);
 
                 testMenu.render();
-                testButton.render( vec(50,400) );
 
                 mainScreen.update();
 

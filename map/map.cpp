@@ -34,16 +34,16 @@ void map::fillHexes( int WIDTH, int HEIGHT ){
 
 }
 
-void map::render( vec offsets[4] ){
+void map::render( vec offsets[5] ){
 
     for( int i = 0; i < width; i++ ){
         for( int j = 0; j < height; j++ ){
          // Calculate the values added to place hex correctly on screen
-         vec EAST = offsets[1]*hexes[i][j].hexLocation.e;
-         vec NEAST= offsets[2]*hexes[i][j].hexLocation.ne;
-         vec NWEST= offsets[3]*hexes[i][j].hexLocation.nw;
+         vec EAST = offsets[2]*hexes[i][j].hexLocation.e;
+         vec NEAST= offsets[3]*hexes[i][j].hexLocation.ne;
+         vec NWEST= offsets[4]*hexes[i][j].hexLocation.nw;
          // Render a sprite for each hex at this location on screen
-         terrainSprites->render( offsets[0] +EAST +NEAST + NWEST, hexes[i][j].terrain );
+         terrainSprites->render( offsets[0] +offsets[1] +EAST +NEAST + NWEST, hexes[i][j].terrain );
 
         }
     }

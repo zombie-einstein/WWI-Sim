@@ -196,7 +196,7 @@
 
 1455980083 /home/jordan/Projects/WWI_sim_SDL/maths/vec.h
 
-1456943249 source:/home/jordan/Projects/WWI_sim_SDL/main.cpp
+1457103415 source:/home/jordan/Projects/WWI_sim_SDL/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<iostream>
@@ -204,6 +204,7 @@
 	<string>
 	<cmath>
 	<functional>
+	<math.h>
 	"map.h"
 	"screen.h"
 	"hexspritelist.h"
@@ -212,7 +213,7 @@
 	"vert_menu.h"
 	"mouse.h"
 
-1454618980 /home/jordan/Projects/WWI_sim_SDL/map/map.h
+1457097473 /home/jordan/Projects/WWI_sim_SDL/map/map.h
 	<vector>
 	<iostream>
 	<fstream>
@@ -262,7 +263,7 @@
 	<SDL_ttf.h>
 	<spriteSheet.h>
 
-1454638452 source:/home/jordan/Projects/WWI_sim_SDL/map/map.cpp
+1457098109 source:/home/jordan/Projects/WWI_sim_SDL/map/map.cpp
 	"map.h"
 
 1454615200 source:/home/jordan/Projects/WWI_sim_SDL/map/maphex.cpp
@@ -337,7 +338,7 @@
 	"vert_menu.h"
 	<iostream>
 
-1456922267 source:/home/jordan/Projects/WWI_sim_SDL/controls/mouse.cpp
+1457102132 source:/home/jordan/Projects/WWI_sim_SDL/controls/mouse.cpp
 	"mouse.h"
 
 1456922272 /home/jordan/Projects/WWI_sim_SDL/controls/mouse.h

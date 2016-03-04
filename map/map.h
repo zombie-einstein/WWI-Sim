@@ -33,7 +33,7 @@ class map
         void fillHexes( int WIDTH, int HEIGHT );
 
         // Render map on given screen
-        void render( vec offsets[4] );
+        void render( vec offsets[5] );
 
         // Read in a map from textfile
         void loadFromFile( const char* path );
