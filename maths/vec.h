@@ -3,8 +3,8 @@
 
 class hexVec;
 
-class vec
-{
+class vec{
+
     public:
 
         vec();

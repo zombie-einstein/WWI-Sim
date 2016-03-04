@@ -11,6 +11,8 @@
 #include <cmath>
 #include <functional>
 #include <math.h>
+
+#include "variables.h"
 #include "map.h"
 #include "screen.h"
 #include "hexspritelist.h"
@@ -19,8 +21,6 @@
 #include "vert_menu.h"
 #include "mouse.h"
 
-#define PI 3.14159265
-
 // Define SDL control functions
 bool startSDL();
 void stopSDL();
@@ -28,6 +28,7 @@ void stopSDL();
 // Static hex width and height for sprite sheet
 int hexclip::clipWidth  = 100;
 int hexclip::clipHeight = 58;
+
 // Padding of UI elements (total)
 vec UI_element::padding(10,10);
 // UI background color (RGBA)
@@ -44,32 +45,29 @@ int main ( int argc, char* args[] )
             // Create screen
             mainScreen.init("SIM", 1280, 480);
 
-            // Create hexlist with 4 hexes rendered by mainScreen
+            // Create hexlists
             hexSpriteList terrain( "sprites/terrain_hex.png", 5, mainScreen.renderer );
             hexSpriteList units( "sprites/unit_hex.png", 4, mainScreen.renderer );
+            hexSpriteList selectSprite( "sprites/select.png", 1, mainScreen.renderer );
 
             // Load desired font to main screen
             mainScreen.loadFonts("sprites/BOMBARD.ttf");
 
-            // Vector of hex direction offsets
-            // for this given hex size
+            variables vars( hexclip::clipWidth );
 
-            double thirtyDegree = 30*PI/180;
-
-            double isometricScaling = hexclip::clipWidth / ( (sqrt(3)+1)*cos(thirtyDegree) );
-
+            // Vector of values required to generate map
             vec offsets[5];
 
-            // Location of origin
+            // Location of origin (used to locate map on screen)
             offsets[0] = vec( 0 , 200);
             // Offset from origin to top corner of sprite
-            offsets[1] = vec( 0.5*isometricScaling*cos(thirtyDegree), -1.5*isometricScaling*sin(thirtyDegree) );
+            offsets[1] = vec( 0.5*vars.isoScaling*vars.cosThirty, -1.5*vars.isoScaling*vars.sinThirty );
             // Translate one cell east
-            offsets[2] = vec( sqrt(3)*isometricScaling*cos(thirtyDegree), sqrt(3)*isometricScaling*sin(thirtyDegree) );
+            offsets[2] = vec( vars.sqrtThree*vars.isoScaling*vars.cosThirty, vars.sqrtThree*vars.isoScaling*vars.sinThirty );
             // Translate one cell north-east
-            offsets[3] = vec( 0.5*(3+sqrt(3))*isometricScaling*cos(thirtyDegree), -0.5*(3-sqrt(3))*isometricScaling*sin(thirtyDegree) );
+            offsets[3] = vec( 0.5*(3+vars.sqrtThree)*vars.isoScaling*vars.cosThirty, -0.5*(3-vars.sqrtThree)*vars.isoScaling*vars.sinThirty );
             // Translate one cell north-west
-            offsets[4] = vec( 0.5*(3-sqrt(3))*isometricScaling*cos(thirtyDegree), -0.5*(3+sqrt(3))*isometricScaling*sin(thirtyDegree) );
+            offsets[4] = vec( 0.5*(3-vars.sqrtThree)*vars.isoScaling*vars.cosThirty, -0.5*(3+vars.sqrtThree)*vars.isoScaling*vars.sinThirty );
 
             // Make text sprite (white)
             textSprite title;
@@ -97,6 +95,7 @@ int main ( int argc, char* args[] )
 
             // Store mouse position
             vec mousePos(0,0);
+            vec mouseGridVec;
 
             // Test map
             map testMap(12,8, &terrain);
@@ -110,12 +109,14 @@ int main ( int argc, char* args[] )
 
                 // Continually update mouse position vector
                 SDL_GetMouseState( &mousePos.x, &mousePos.y );
+                vec mouseGridVec = convertMouseToHex( mousePos, offsets[0], &vars );
 
                 // Check for mouse scrolling
                 mouseScrolling( mainScreen.dimensions, mousePos, offsets[0], 1 );
 
 				//Handle events on queue
 				while( SDL_PollEvent( &event ) != 0 ){
+
 					//User requests quit
 					if( event.type == SDL_QUIT || event.type == SDLK_ESCAPE ){
 						quit = true;
@@ -139,28 +140,8 @@ int main ( int argc, char* args[] )
 					if ( event.type == SDL_MOUSEBUTTONDOWN ){
 
                         testMenu.mouseCheck( mousePos );
-                        mousePos = vec ( mousePos.x - offsets[0].x, offsets[0].y - mousePos.y );
 
-                        double newMousePosX = mousePos.x/isometricScaling;
-                        double newMousePosY = mousePos.y/isometricScaling;
-
-                        newMousePosX = 0.5*( newMousePosX/cos(thirtyDegree) - newMousePosY/sin(thirtyDegree) );
-                        newMousePosY = 0.5*( newMousePosX/cos(thirtyDegree) + newMousePosY/sin(thirtyDegree) );
-
-                        double findEastX = -newMousePosX/sqrt(3)+newMousePosY-0.5;
-                        double findEastY = 2*newMousePosX/sqrt(3);
-
-                        double findNWestX = newMousePosX/sqrt(3)+newMousePosY-0.5;
-                        double findNWestY = newMousePosX/sqrt(3)-newMousePosY+0.5;
-
-                        vec mouseGridVec;
-
-                        mouseGridVec.x = floor( ( floor(findEastY)-floor(findEastX) )/3 );
-                        mouseGridVec.y = floor( ( floor(findNWestX)-floor(findNWestY) )/3 );
-
-                        std::cout << "(" << floor(findEastX) << "," << floor(findEastY) << ")";
-                        std::cout << "(" << floor(findNWestX) << "," << floor(findNWestY) << ")";
-                        std::cout << "(" << mouseGridVec.x << "," << mouseGridVec.y << ")\n";
+                        //std::cout << "(" << mouseGridVec.x << "," << mouseGridVec.y << ")\n";
 
 					}
 				}
@@ -170,7 +151,12 @@ int main ( int argc, char* args[] )
 
                 testMap.render(offsets);
 
-                title.render(50,50,mainScreen.renderer);
+                vec selectE  = offsets[2]*mouseGridVec.x;
+                vec selectNE = offsets[3]*mouseGridVec.y;
+
+                selectSprite.render( offsets[0] +offsets[1] +selectE + selectNE ,0);
+
+                title.render(400,50,mainScreen.renderer);
                 smallExample.render(50,75,mainScreen.renderer);
 
                 testMenu.render();
