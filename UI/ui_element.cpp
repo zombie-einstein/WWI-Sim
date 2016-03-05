@@ -9,13 +9,13 @@ UI_element::~UI_element()
     //dtor
 }
 
-void UI_element::setLocation( vec x ){
+void UI_element::setLocation( vec<int> x ){
 
     location = x;
 
 }
 
-void UI_element::setDimensions( vec d ){
+void UI_element::setDimensions( vec<int> d ){
 
     dimensions = d;
 

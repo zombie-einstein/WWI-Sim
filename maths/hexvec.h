@@ -3,7 +3,7 @@
 
 //#include "vec.h"
 
-class vec;
+template <class T> class vec;
 
 class hexVec
 {
@@ -18,7 +18,10 @@ class hexVec
         int e, ne, nw;
 
         // Convert a hex vector to a square vector
-        vec convertToSquare();
+        vec<int> convertToSquare();
+
+        // Print the co-ordinates to console
+        void print();
 
     protected:
     private:

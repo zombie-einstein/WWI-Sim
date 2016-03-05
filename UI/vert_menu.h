@@ -26,10 +26,10 @@ class vert_menu:public UI_element{
         void render();
 
         // Render the menu including buttons ( & set location )
-        void render( vec x );
+        void render( vec<int> x );
 
         // Check button list for mouseclicks
-        bool mouseCheck( vec mousePos );
+        bool mouseCheck( vec<int> mousePos );
 
     protected:
     private:

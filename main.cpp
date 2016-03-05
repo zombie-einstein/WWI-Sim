@@ -4,7 +4,7 @@
     #include <stdlib.h>
 #endif
 
-
+// Libraries
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,6 +12,7 @@
 #include <functional>
 #include <math.h>
 
+// Header Files
 #include "variables.h"
 #include "map.h"
 #include "screen.h"
@@ -30,8 +31,9 @@ int hexclip::clipWidth  = 100;
 int hexclip::clipHeight = 58;
 
 // Padding of UI elements (total)
-vec UI_element::padding(10,10);
-// UI background color (RGBA)
+vec<int> UI_element::padding(10,10);
+
+// UI background color static (RGBA)
 int UI_element::UIBackGroundColor[4] = { 200, 200, 200, 255 };
 
 
@@ -43,49 +45,35 @@ int main ( int argc, char* args[] )
             screen mainScreen;
 
             // Create screen
-            mainScreen.init("SIM", 1280, 480);
+            mainScreen.init("SIM", 960, 480);
 
             // Create hexlists
             hexSpriteList terrain( "sprites/terrain_hex.png", 5, mainScreen.renderer );
             hexSpriteList units( "sprites/unit_hex.png", 4, mainScreen.renderer );
-            hexSpriteList selectSprite( "sprites/select.png", 1, mainScreen.renderer );
+            hexSpriteList selectSprite( "sprites/select.png", 2, mainScreen.renderer );
 
             // Load desired font to main screen
             mainScreen.loadFonts("sprites/BOMBARD.ttf");
 
-            variables vars( hexclip::clipWidth );
+            // Initialize hex variables for given sprite width and origin
+            variables vars( vec<int>(0,200), hexclip::clipWidth );
 
-            // Vector of values required to generate map
-            vec offsets[5];
-
-            // Location of origin (used to locate map on screen)
-            offsets[0] = vec( 0 , 200);
-            // Offset from origin to top corner of sprite
-            offsets[1] = vec( 0.5*vars.isoScaling*vars.cosThirty, -1.5*vars.isoScaling*vars.sinThirty );
-            // Translate one cell east
-            offsets[2] = vec( vars.sqrtThree*vars.isoScaling*vars.cosThirty, vars.sqrtThree*vars.isoScaling*vars.sinThirty );
-            // Translate one cell north-east
-            offsets[3] = vec( 0.5*(3+vars.sqrtThree)*vars.isoScaling*vars.cosThirty, -0.5*(3-vars.sqrtThree)*vars.isoScaling*vars.sinThirty );
-            // Translate one cell north-west
-            offsets[4] = vec( 0.5*(3-vars.sqrtThree)*vars.isoScaling*vars.cosThirty, -0.5*(3+vars.sqrtThree)*vars.isoScaling*vars.sinThirty );
-
-            // Make text sprite (white)
+            // Make title text sprite (white)
             textSprite title;
             title.loadFromRenderedText("WWI SIM v0.1", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFontLarge );
 
             textSprite smallExample;
             smallExample.loadFromRenderedText("small text example", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFontSmall );
 
-            button testButton( "A test button", &mainScreen );
-
+            // Make a test menu
             vert_menu testMenu( "Test Menu", &mainScreen );
             testMenu.addButton("Move Menu to corner");
             testMenu.addButton("Move Menu back");
-            testMenu.setLocation( vec(50,150));
+            testMenu.setLocation( vec<int>(50,150));
 
             // Use bind to attach function definitions to class members
-            testMenu.buttonList[0].click = std::bind( &vert_menu::setLocation, &testMenu, vec(10,10) );
-            testMenu.buttonList[1].click = std::bind( &vert_menu::setLocation, &testMenu, vec(50,150) );
+            testMenu.buttonList[0].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(10,10) );
+            testMenu.buttonList[1].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(50,150) );
 
             //Main loop flag
 			bool quit = false;
@@ -93,26 +81,25 @@ int main ( int argc, char* args[] )
             //Event handler
 			SDL_Event event;
 
-            // Store mouse position
-            vec mousePos(0,0);
-            vec mouseGridVec;
-
             // Test map
-            map testMap(12,8, &terrain);
+            map testMap(12,8, &terrain, &vars);
 
             testMap.loadFromFile("data/testmap.txt");
 
-            // **** Main application loop starts here ****
+            // Create mouse object
+            mouse mouseA( &vars, &selectSprite, mainScreen.dimensions, testMap.pixelMin, testMap.pixelMax );
+
+            //================= Main application loop starts here ======================//
 
 			//While application is running
 			while( !quit ){
 
                 // Continually update mouse position vector
-                SDL_GetMouseState( &mousePos.x, &mousePos.y );
-                vec mouseGridVec = convertMouseToHex( mousePos, offsets[0], &vars );
-
+                mouseA.updatePosition();
+                // Convert screen position to hex vector
+                mouseA.convertToHex();
                 // Check for mouse scrolling
-                mouseScrolling( mainScreen.dimensions, mousePos, offsets[0], 1 );
+                mouseA.mouseScrolling();
 
 				//Handle events on queue
 				while( SDL_PollEvent( &event ) != 0 ){
@@ -123,7 +110,7 @@ int main ( int argc, char* args[] )
 					}
 					if( event.type == SDL_KEYDOWN){
 
-                        mapControl(event, offsets[0], 10);
+                        mapControl(event, vars.origin, 10);
 
                         switch( event.key.keysym.sym ){
 
@@ -137,24 +124,22 @@ int main ( int argc, char* args[] )
 
                         }
 					}
+
 					if ( event.type == SDL_MOUSEBUTTONDOWN ){
 
-                        testMenu.mouseCheck( mousePos );
-
-                        //std::cout << "(" << mouseGridVec.x << "," << mouseGridVec.y << ")\n";
+                        testMenu.mouseCheck( mouseA.screenLocation );
+                        mouseA.printCoOrds();
 
 					}
 				}
 
-                // Clean, render sprite and update
+                // Clean, render sprites and update
                 mainScreen.clean();
 
-                testMap.render(offsets);
+                testMap.render();
 
-                vec selectE  = offsets[2]*mouseGridVec.x;
-                vec selectNE = offsets[3]*mouseGridVec.y;
-
-                selectSprite.render( offsets[0] +offsets[1] +selectE + selectNE ,0);
+                mouseA.renderHex(1);
+                mouseA.renderHex(0);
 
                 title.render(400,50,mainScreen.renderer);
                 smallExample.render(50,75,mainScreen.renderer);
@@ -171,6 +156,6 @@ int main ( int argc, char* args[] )
 
         }
 
-
     return 0;
+
 }

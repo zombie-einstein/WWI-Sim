@@ -2,7 +2,7 @@
 
 // Map control, moves the map render origin based on input
 
-void mapControl( SDL_Event event, vec &mapOrigin, int shift ){
+void mapControl( SDL_Event event, vec<int> &mapOrigin, int shift ){
 
     switch( event.key.keysym.sym ){
 

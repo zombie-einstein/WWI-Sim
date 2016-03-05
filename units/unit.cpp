@@ -4,7 +4,7 @@ unit::unit(){
     //ctor
 }
 
-unit::unit( vec x ){
+unit::unit( vec<int> x ){
 
     setGridLocation( x );
 

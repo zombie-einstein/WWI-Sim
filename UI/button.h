@@ -36,10 +36,10 @@ class button: public UI_element{
         void render();
 
         // Render button as an SDL primative with text
-        void render( vec a );
+        void render( vec<int> a );
 
         // Checks wether a mouse click is over button and acts appropriately
-        bool mouseClick( vec mousPos );
+        bool mouseClick( vec<int> mousPos );
 
     protected:
     private:

@@ -6,7 +6,7 @@ vert_menu::vert_menu( std::string t, screen* r ){
 
     title.loadFromRenderedText( t, {0,0,0}, renderScreen->renderer, renderScreen->screenFontSmall );
     // Vector to contain the text dimensions
-    vec titleDimensions;
+    vec<int> titleDimensions;
 
     SDL_QueryTexture( title.texture, NULL, NULL, &titleDimensions.x, &titleDimensions.y );
     // Set button dimensions at text dimensions plus padding
@@ -31,7 +31,7 @@ void vert_menu::addButton( std::string t ){
 
     button newButton( t, renderScreen);
     // Set button location relative to corner of menu
-    newButton.setLocation( vec( padding.x/2, dimensions.y ) );
+    newButton.setLocation( vec<int>( padding.x/2, dimensions.y ) );
 
     // Push button to vector
     buttonList.push_back( newButton );
@@ -56,12 +56,12 @@ void vert_menu::render(){
         // Make all buttons same width
         it->dimensions.x = dimensions.x-padding.x;
         // Draw button and text
-        it->render( vec( location.x+it->location.x, location.y+it->location.y ) );
+        it->render( vec<int>( location.x+it->location.x, location.y+it->location.y ) );
 
     }
 }
 
-void vert_menu::render( vec a ){
+void vert_menu::render( vec<int> a ){
 
     // Render containing menu box
     renderBox( a.x, a.y );
@@ -72,13 +72,13 @@ void vert_menu::render( vec a ){
         // Make all buttons same width
         it->dimensions.x = dimensions.x-padding.x;
         // Draw button and text
-        it->render( vec( a.x+it->location.x, a.y+it->location.y ) );
+        it->render( vec<int>( a.x+it->location.x, a.y+it->location.y ) );
     }
 }
 
-bool vert_menu::mouseCheck( vec mousePos ){
+bool vert_menu::mouseCheck( vec<int> mousePos ){
 
-    vec boundary = location + dimensions;
+    vec<int> boundary = location + dimensions;
 
     if (  mousePos > location && mousePos < boundary ){
 

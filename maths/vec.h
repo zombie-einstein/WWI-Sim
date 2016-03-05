@@ -1,33 +1,58 @@
+// Template 2-D vector class (no .cpp file)
+
 #ifndef VEC_H
 #define VEC_H
 
-class hexVec;
+#include <iostream>
+#include <hexvec.h>
 
-class vec{
+template <class T> class vec{
 
     public:
 
-        vec();
+        vec(){};
 
-        vec( int X, int Y );
+        vec( T X, T Y ){ x = X; y = Y; }
 
-        ~vec();
+        ~vec(){};
 
-        int x;
+        T x, y;
 
-        int y;
+        // Convert a 2-D hex co-ord to corresponding hex co-ords
+        hexVec convertToHex(){
+            return hexVec( x, 0.5*(y + y%2), 0.5*(y - y%2) );
+        }
 
-        hexVec convertToHex();
+        // Print vector to console
+        void print(){
+            std::cout << "(" << x << "," << y << ") " ;
+        }
 
-        vec operator + ( vec& object );
+        // sum of two vectors
+        vec<T> operator + ( vec<T>& object ){
+            return vec<T>( x +object.x, y +object.y );
+        }
 
-        vec operator - ( vec& object );
+        // Subtract a vector
+        vec<T> operator - ( vec<T>& object ){
+            return vec<T> ( x -object.x, y -object.y );
+        }
 
-        vec operator * ( int );
+        // Scale vector (by arbitary type)
+        template < class N>
+        vec<T> operator * ( N a ){
+            return vec<T>( a*x, a*y );
+        }
 
-        bool operator > ( vec& object );
+        // Check if a vector is greater than both components of amother
+        bool operator > ( vec<T>& object ){
+            return ( x > object.x && y > object.y );
+        }
 
-        bool operator < ( vec& object );
+        // Check if a vector is less than both components of another
+        bool operator < ( vec<T>& object ){
+            return ( x < object.x && y < object.y );
+        }
 
     protected:
     private:

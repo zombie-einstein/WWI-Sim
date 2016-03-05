@@ -9,7 +9,7 @@ class unit: public hex{
 
         unit();
 
-        unit( vec );
+        unit( vec<int> );
 
         unit( hexVec );
 

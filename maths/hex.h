@@ -4,19 +4,19 @@
 #include "vec.h"
 #include "hexvec.h"
 
-class hex
-{
+class hex{
+
     public:
 
         hex();
 
         ~hex();
 
-        vec gridLocation;
+        vec <int> gridLocation;
 
         hexVec hexLocation;
 
-        void setGridLocation( vec GRID );
+        void setGridLocation( vec<int> GRID );
 
         void setHexLocation( hexVec HEX );
 

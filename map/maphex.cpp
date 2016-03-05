@@ -4,7 +4,7 @@ mapHex::mapHex(){
     //ctor
 }
 
-mapHex::mapHex( vec x ){
+mapHex::mapHex( vec<int> x ){
 
     setGridLocation( x );
     terrain = 0;

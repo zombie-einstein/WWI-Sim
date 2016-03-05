@@ -18,7 +18,7 @@ void button::loadText( std::string t ){
 
     text.loadFromRenderedText( t, {0,0,0}, renderScreen->renderer, renderScreen->screenFontSmall );
     // Vector to contain the text dimensions
-    vec textDimensions;
+    vec<int> textDimensions;
     SDL_QueryTexture( text.texture, NULL, NULL, &textDimensions.x, &textDimensions.y );
     // Set button dimensions at text dimensions plus padding
     textDimensions = textDimensions + padding;
@@ -34,7 +34,7 @@ void button::render(){
 
 }
 
-void button::render( vec a ){
+void button::render( vec<int> a ){
 
      renderBox( a.x, a.y );
     // Render appropriate text inside button box
@@ -42,9 +42,9 @@ void button::render( vec a ){
 
 }
 
-bool button::mouseClick( vec mousePos ){
+bool button::mouseClick( vec<int> mousePos ){
 
-    vec boundary = location+dimensions;
+    vec<int> boundary = location+dimensions;
 
     if ( mousePos > location && mousePos < boundary ){
 

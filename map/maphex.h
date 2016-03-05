@@ -10,7 +10,7 @@ class mapHex : public hex{
         mapHex();
 
         // Sets both sets co-ords from a grid vector
-        mapHex( vec );
+        mapHex( vec<int> );
 
         // Sets both co-ords from a hex vector
         mapHex( hexVec );

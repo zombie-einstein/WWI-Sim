@@ -15,9 +15,15 @@ hexVec::~hexVec(){
 
 }
 
-vec hexVec::convertToSquare(){
+vec<int> hexVec::convertToSquare(){
 
-    vec tempVec( e, ne +nw );
+    vec<int> tempVec( (ne +nw -(ne+nw)%2)/2 -nw +e, ne +nw );
     return tempVec;
+
+}
+
+void hexVec::print(){
+
+    std::cout << "(" << e << "," << ne << "," << nw << ") ";
 
 }

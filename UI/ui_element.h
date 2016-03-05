@@ -14,7 +14,7 @@ class UI_element
         ~UI_element();
 
         // Padding for elements inside UI element
-        static vec padding;
+        static vec<int> padding;
 
         // So menu's have coherent look
         static int UIBackGroundColor[4];
@@ -22,14 +22,14 @@ class UI_element
         // Pointer to the screen that the elemet will render to
         screen* renderScreen = NULL;
         // Location (top left corner) of element
-        vec location;
+        vec<int> location;
         // Dimsensions of element
-        vec dimensions;
+        vec<int> dimensions;
 
         // Methods for setting these values
-        void setLocation( vec x );
+        void setLocation( vec<int> x );
 
-        void setDimensions( vec d );
+        void setDimensions( vec<int> d );
 
         // Render the background UI box
         void renderBox( int x, int y );

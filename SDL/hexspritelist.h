@@ -36,7 +36,7 @@ class hexSpriteList
         bool loadMedia();
 
         // Render a specific hex (from vector)
-        void render( vec location, int hexNum );
+        void render( vec<int> location, int hexNum );
 
         // Render a specific hex (from vector)
         void render( int x, int y, int hexNum );

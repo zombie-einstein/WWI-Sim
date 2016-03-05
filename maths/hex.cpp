@@ -10,7 +10,7 @@ hex::~hex()
     //dtor
 }
 
-void hex::setGridLocation( vec GRID ){
+void hex::setGridLocation( vec<int> GRID ){
 
     gridLocation = GRID;
     hexLocation  = GRID.convertToHex();

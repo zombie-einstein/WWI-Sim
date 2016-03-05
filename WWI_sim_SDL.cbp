@@ -76,7 +76,6 @@
 		<Unit filename="maths/hexvec.cpp" />
 		<Unit filename="maths/hexvec.h" />
 		<Unit filename="maths/variables.h" />
-		<Unit filename="maths/vec.cpp" />
 		<Unit filename="maths/vec.h" />
 		<Unit filename="units/unit.cpp" />
 		<Unit filename="units/unit.h" />

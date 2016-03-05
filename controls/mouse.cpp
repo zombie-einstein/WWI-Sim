@@ -1,40 +1,84 @@
 #include "mouse.h"
 
-void mouseScrolling( vec screenSize, vec mousePos, vec &origin, int scrollRate ){
+mouse::mouse( variables* V, hexSpriteList* S, vec<int> sSize, vec<int> mMin, vec<int> mMax ){
 
-    if ( mousePos.x < 2 && mousePos.x > -1 ){ origin.x += scrollRate; }
-    else if ( mousePos.x >= screenSize.x-1 ){ origin.x -= scrollRate; }
-    if ( mousePos.y < 2 && mousePos.y > -1 ){ origin.y += scrollRate; }
-    else if ( mousePos.y >= screenSize.y-1 ){ origin.y -= scrollRate; }
+    varPtr      = V;
+    sptPtr      = S;
+    screenSize  = sSize;
+    mapMin      = mMin;
+    mapMax      = mMax;
 
 }
 
-vec convertMouseToHex( vec mousePos, vec offset, variables* v ){
+void mouse::updatePosition(){
+
+    SDL_GetMouseState( &screenLocation.x, &screenLocation.y );
+
+
+}
+
+void mouse::mouseScrolling(){
+
+    if ( screenLocation.x < 2 && varPtr->origin.x < mapPadding ){ varPtr->origin.x += scrollRate; }
+    else if ( screenLocation.x > screenSize.x-2 && varPtr->origin.x > screenSize.x -mapPadding -mapMax.x ){ varPtr->origin.x -= scrollRate; }
+    if ( screenLocation.y < 2 && varPtr->origin.y < mapPadding -mapMin.y ){ varPtr->origin.y += scrollRate; }
+    else if ( screenLocation.y > screenSize.y-2 && varPtr->origin.y > screenSize.y -mapMax.y -mapPadding ){ varPtr->origin.y -= scrollRate; }
+
+}
+
+
+void mouse::convertToHex(){
 
     // Convert screen co-ords of mouse to positive co-ords relative to map origin
-    mousePos = vec ( mousePos.x - offset.x, offset.y - mousePos.y );
+    vec<int> temp( screenLocation.x - varPtr->origin.x, varPtr->origin.y - screenLocation.y );
 
-    // Affine transform from isometric co-ords to cartesian hexgrid
-    double newMousePosX = 0.5*( mousePos.x/v->cosThirty - mousePos.y/v->sinThirty );
-    double newMousePosY = 0.5*( mousePos.x/v->cosThirty + mousePos.y/v->sinThirty );
+    // Transform and rescale to unit cartesian hex
+    vec<double> newMouse( temp.x/varPtr->cosThirty - temp.y/varPtr->sinThirty, temp.x/varPtr->cosThirty + temp.y/varPtr->sinThirty );
+    newMouse = newMouse*(0.5/varPtr->isoScaling);
 
-    // Rescale co-ords proportional to width of hex sprties
-    newMousePosX = newMousePosX/v->isoScaling;
-    newMousePosY = newMousePosY/v->isoScaling;
-
-    // Affine transformations required to find "e" component of hex co-ord
-    double findEastX = -newMousePosX/v->sqrtThree+newMousePosY-0.5;
-    double findEastY = 2*newMousePosX/v->sqrtThree;
-
-    // Affine transformation required to find "ne" component of hex co-ord
-    double findNWestX = newMousePosX/v->sqrtThree+newMousePosY-0.5;
-    double findNWestY = newMousePosX/v->sqrtThree-newMousePosY+0.5;
-
-    vec mouseGridVec;
+    // Affine transformation required to find hex co-ord
+    vec<double> findEast( -newMouse.x/varPtr->sqrtThree+newMouse.y-0.5, 2*newMouse.x/varPtr->sqrtThree );
+    vec<double> findNEast( newMouse.x/varPtr->sqrtThree+newMouse.y-0.5, newMouse.x/varPtr->sqrtThree-newMouse.y+0.5 );
 
     // Locate transformed locations on hex grid
-    mouseGridVec.x = floor( ( floor(findEastY)-floor(findEastX) )/3 );
-    mouseGridVec.y = floor( ( floor(findNWestX)-floor(findNWestY) )/3 );
+    co_ords.hexLocation.e  = floor( ( floor(findEast.y)-floor(findEast.x) )/3 );
+    co_ords.hexLocation.ne = floor( ( floor(findNEast.x)-floor(findNEast.y) )/3 );
 
-    return mouseGridVec;
+    co_ords.hexLocation.nw = 0;
+
+    // Refactor hex location so that all components are positive
+    if ( co_ords.hexLocation.e < 0 ){
+
+        co_ords.hexLocation.nw = -co_ords.hexLocation.e;
+        co_ords.hexLocation.ne += co_ords.hexLocation.e;
+        co_ords.hexLocation.e  = 0;
+
+    }
+
+    co_ords.gridLocation = co_ords.hexLocation.convertToSquare();
+
+}
+
+void mouse::renderHex( int spriteNumber ){
+
+    // Calculate hex translation in pixels
+    vec<int> pixE  = varPtr->e*co_ords.hexLocation.e;
+    vec<int> pixNE = varPtr->ne*co_ords.hexLocation.ne;
+    vec<int> pixNW = varPtr->nw*co_ords.hexLocation.nw;
+
+    // Render the appropriately numbered sprite
+    sptPtr->render( varPtr->origin +varPtr->toSprite +pixE +pixNE +pixNW, spriteNumber );
+
+}
+
+void mouse::printCoOrds(){
+
+    std::cout << "Screen:";
+    screenLocation.print();
+    std::cout << " Array:";
+    co_ords.gridLocation.print();
+    std::cout << " Hex:";
+    co_ords.hexLocation.print();
+    std::cout << "\n";
+
 }

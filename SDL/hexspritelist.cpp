@@ -41,7 +41,7 @@ bool hexSpriteList::loadMedia(){
     return success;
 }
 
-void hexSpriteList::render( vec location, int n ){
+void hexSpriteList::render( vec<int> location, int n ){
 
     hexSheet.render( location.x, location.y, renderer, &hexes[n].clipBox );
 

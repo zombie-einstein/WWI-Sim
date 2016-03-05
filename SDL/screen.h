@@ -16,7 +16,7 @@ class screen{
         ~screen();
 
         // Screen dimensions (set when initialized)
-        vec dimensions;
+        vec<int> dimensions;
 
         // The Window to render to
         SDL_Window* window;
