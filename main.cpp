@@ -22,7 +22,7 @@
 #include "vert_menu.h"
 #include "mouse.h"
 
-// Define SDL control functions
+// Declare SDL control functions (SDL_Controls.cpp)
 bool startSDL();
 void stopSDL();
 
@@ -45,10 +45,10 @@ int main ( int argc, char* args[] )
             screen mainScreen;
 
             // Create screen
-            mainScreen.init("SIM", 960, 480);
+            mainScreen.init("SIM", 800, 400);
 
             // Create hexlists
-            hexSpriteList terrain( "sprites/terrain_hex.png", 5, mainScreen.renderer );
+            hexSpriteList terrain( "sprites/terrain_hex.png", 6, mainScreen.renderer );
             hexSpriteList units( "sprites/unit_hex.png", 4, mainScreen.renderer );
             hexSpriteList selectSprite( "sprites/select.png", 2, mainScreen.renderer );
 
@@ -65,16 +65,6 @@ int main ( int argc, char* args[] )
             textSprite smallExample;
             smallExample.loadFromRenderedText("small text example", { 255, 255, 255 }, mainScreen.renderer, mainScreen.screenFontSmall );
 
-            // Make a test menu
-            vert_menu testMenu( "Test Menu", &mainScreen );
-            testMenu.addButton("Move Menu to corner");
-            testMenu.addButton("Move Menu back");
-            testMenu.setLocation( vec<int>(50,150));
-
-            // Use bind to attach function definitions to class members
-            testMenu.buttonList[0].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(10,10) );
-            testMenu.buttonList[1].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(50,150) );
-
             //Main loop flag
 			bool quit = false;
 
@@ -88,6 +78,19 @@ int main ( int argc, char* args[] )
 
             // Create mouse object
             mouse mouseA( &vars, &selectSprite, mainScreen.dimensions, testMap.pixelMin, testMap.pixelMax );
+
+
+            // Make a test menu
+            vert_menu testMenu( "Test Menu", &mainScreen );
+            testMenu.addButton("Move Menu to corner");
+            testMenu.addButton("Move Menu back");
+            testMenu.addButton("Grid Lines On/Off");
+            testMenu.setLocation( vec<int>(50,50));
+
+            // Use bind to attach function definitions to class members
+            testMenu.buttonList[0].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(10,10) );
+            testMenu.buttonList[1].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(50,150) );
+            testMenu.buttonList[2].click = std::bind( &map::gridLineSwitch, &testMap );
 
             //================= Main application loop starts here ======================//
 
@@ -115,11 +118,11 @@ int main ( int argc, char* args[] )
                         switch( event.key.keysym.sym ){
 
                         // Exit main window
-                        case SDLK_ESCAPE:   quit = true; break;
+                        case SDLK_ESCAPE:   quit = true;
+                                            break;
 
-                        // Go to fullscreen (and change screen variables)
-                        case SDLK_F1:       SDL_SetWindowFullscreen(mainScreen.window, SDL_WINDOW_FULLSCREEN);
-                                            SDL_GetWindowSize( mainScreen.window, &mainScreen.dimensions.x, &mainScreen.dimensions.y );
+                        // F1 to go fullscreen
+                        case SDLK_F1:       mainScreen.goFullscreen();
                                             break;
 
                         }
@@ -136,16 +139,19 @@ int main ( int argc, char* args[] )
                 // Clean, render sprites and update
                 mainScreen.clean();
 
-                testMap.render();
+                testMap.render();    // Render map
 
-                mouseA.renderHex(1);
-                mouseA.renderHex(0);
+                mouseA.renderHex(1); // Render mouse hex
+                mouseA.renderHex(0); // Render mouse hex border
 
-                title.render(400,50,mainScreen.renderer);
-                smallExample.render(50,75,mainScreen.renderer);
+                // Render title
+                title.render( mainScreen.dimensions.x -50 -title.width, 50, mainScreen.renderer );
+                //smallExample.render(50,75,mainScreen.renderer);
 
+                // Render menu
                 testMenu.render();
 
+                // Update the screen
                 mainScreen.update();
 
 			}

@@ -10,11 +10,10 @@ template <class T> class vec{
 
     public:
 
-        vec(){};
+        // Default constructor sets values at 0
+        vec(){ x =0; y = 0; }
 
         vec( T X, T Y ){ x = X; y = Y; }
-
-        ~vec(){};
 
         T x, y;
 
@@ -56,6 +55,7 @@ template <class T> class vec{
 
     protected:
     private:
+
 };
 
 #endif // VEC_H

@@ -1,6 +1,10 @@
+// Stores individual map hex properties
+// Inherets hex co-ord properties from "hex.h"
+
 #ifndef MAPHEX_H
 #define MAPHEX_H
 
+// Inheritance
 #include "hex.h"
 
 class mapHex : public hex{
@@ -9,10 +13,10 @@ class mapHex : public hex{
 
         mapHex();
 
-        // Sets both sets co-ords from a grid vector
+        // Sets both sets of co-ords from a grid vector
         mapHex( vec<int> );
 
-        // Sets both co-ords from a hex vector
+        // Sets both sets co-ords from a hex vector
         mapHex( hexVec );
 
         ~mapHex();
@@ -28,6 +32,7 @@ class mapHex : public hex{
 
     protected:
     private:
+
 };
 
 #endif // MAPHEX_H

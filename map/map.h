@@ -1,17 +1,21 @@
+// Map class, stores a vector of maphex's and links to a list of terrain sprites
+
 #ifndef MAP_H
 #define MAP_H
 
+// Libraries
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdlib.h>
+
+// Header files
 #include "maphex.h"
 #include "hexspritelist.h"
 #include "variables.h"
 
-class map
-{
+class map{
+
     public:
         // Constructor sets width and height of map
         // and fills the vector with the appropriate map hexs
@@ -25,8 +29,8 @@ class map
         // Map pixel max and mins (relative to origin)
         vec<int> pixelMax, pixelMin;
 
-        // Switch for showing rendering map boundary
-        bool renderBoundary = false;
+        // Switch for showing rendering map boundary & grid lines
+        bool renderBoundary = false, renderGridLines = false;
 
         // Pointer to set of terrrain sprites
         // associates map with terrain sprites
@@ -39,17 +43,21 @@ class map
         std::vector< std::vector<mapHex> > hexes;
 
         // Populate vector with hexes with
-        // appropriatte co-ordinates
+        // appropriatte hex and array co-ordinates
         void fillHexes( int WIDTH, int HEIGHT );
 
-        // Render map on given screen
-        void render( );
+        // Render hex sprites to their appropriate screen, from info in hex vector
+        void render();
 
         // Read in a map from textfile
         void loadFromFile( const char* path );
 
+        // Switch grid lines on off
+        void gridLineSwitch();
+
     protected:
     private:
+
 };
 
 #endif // MAP_H

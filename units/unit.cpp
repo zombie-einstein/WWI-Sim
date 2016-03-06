@@ -1,8 +1,6 @@
 #include "unit.h"
 
-unit::unit(){
-    //ctor
-}
+unit::unit(){ }
 
 unit::unit( vec<int> x ){
 
@@ -16,7 +14,3 @@ unit::unit( hexVec x){
 
 }
 
-unit::~unit()
-{
-    //dtor
-}

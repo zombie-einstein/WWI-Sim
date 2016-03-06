@@ -4,22 +4,17 @@ hexclip::hexclip(){
 
 }
 
-hexclip::hexclip( int x, int y ){
+hexclip::hexclip( int n, int m ){
 
     // Constructor sets clip box
-    setClipBox( x, y );
+    setClipBox( n, m );
 
 }
 
-hexclip::~hexclip()
-{
-    // Destructor ( Clear clip box?)
-}
-
-void hexclip::setClipBox( int x, int y ){
+void hexclip::setClipBox( int n, int m ){
     // Construct with clip box
-    clipBox.x  = x *clipWidth;
-    clipBox.y  = y *clipHeight;
+    clipBox.x  = n *clipWidth;
+    clipBox.y  = m *clipHeight;
     clipBox.w  = clipWidth;
     clipBox.h  = clipHeight;
 

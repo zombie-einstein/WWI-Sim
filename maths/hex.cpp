@@ -1,13 +1,17 @@
 #include "hex.h"
 
-hex::hex()
-{
-    //ctor
+hex::hex(){ }
+
+hex::hex( vec<int> x ){
+
+    setGridLocation( x );
+
 }
 
-hex::~hex()
-{
-    //dtor
+hex::hex( hexVec x ){
+
+    setHexLocation( x );
+
 }
 
 void hex::setGridLocation( vec<int> GRID ){

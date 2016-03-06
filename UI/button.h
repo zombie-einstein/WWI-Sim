@@ -1,3 +1,5 @@
+// UI Button element
+
 #ifndef BUTTON_H
 #define BUTTON_H
 
@@ -5,8 +7,10 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <functional>
+
 // Inheritance
 #include "ui_element.h"
+
 // Dependencies
 #include "textsprite.h"
 

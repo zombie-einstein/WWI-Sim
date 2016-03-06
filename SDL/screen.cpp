@@ -97,3 +97,10 @@ void screen::update(){
     SDL_RenderPresent( renderer );
 
 }
+
+void screen::goFullscreen(){
+
+    SDL_SetWindowFullscreen( window, SDL_WINDOW_FULLSCREEN);
+    SDL_GetWindowSize( window, &dimensions.x, &dimensions.y );
+
+}

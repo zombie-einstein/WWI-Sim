@@ -1,6 +1,9 @@
+// General unit class, inherets hex location properties
+
 #ifndef UNIT_H
 #define UNIT_H
 
+// Inheritance
 #include "hex.h"
 
 class unit: public hex{
@@ -13,10 +16,10 @@ class unit: public hex{
 
         unit( hexVec );
 
-        ~unit();
 
     protected:
     private:
+
 };
 
 #endif // UNIT_H

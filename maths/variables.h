@@ -1,5 +1,5 @@
 // Container for variables used to convert a hex grid to pixels and vice versa
-// Values depend on chosen width of hexsprite
+// Values depend on chosen width of hexsprite (no associated .cpp file)
 
 #ifndef VARIABLES_H_INCLUDED
 #define VARIABLES_H_INCLUDED

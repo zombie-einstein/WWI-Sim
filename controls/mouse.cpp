@@ -14,7 +14,6 @@ void mouse::updatePosition(){
 
     SDL_GetMouseState( &screenLocation.x, &screenLocation.y );
 
-
 }
 
 void mouse::mouseScrolling(){
@@ -54,20 +53,15 @@ void mouse::convertToHex(){
         co_ords.hexLocation.e  = 0;
 
     }
-
+    // Convert hex co-ordinates to array co-ordinates
     co_ords.gridLocation = co_ords.hexLocation.convertToSquare();
 
 }
 
 void mouse::renderHex( int spriteNumber ){
 
-    // Calculate hex translation in pixels
-    vec<int> pixE  = varPtr->e*co_ords.hexLocation.e;
-    vec<int> pixNE = varPtr->ne*co_ords.hexLocation.ne;
-    vec<int> pixNW = varPtr->nw*co_ords.hexLocation.nw;
-
     // Render the appropriately numbered sprite
-    sptPtr->render( varPtr->origin +varPtr->toSprite +pixE +pixNE +pixNW, spriteNumber );
+    sptPtr->render( co_ords.hexLocation, spriteNumber, varPtr );
 
 }
 

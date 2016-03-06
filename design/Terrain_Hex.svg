@@ -16,8 +16,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="Hex.svg"
-   inkscape:export-filename="/home/jordan/Projects/WWI SIM (SDL)/sprites/terrain_hex.png"
+   sodipodi:docname="Terrain_Hex.svg"
+   inkscape:export-filename="/home/jordan/Projects/WWI_sim_SDL/sprites/terrain_hex.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -81,16 +81,16 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="83.73955"
-     inkscape:cy="300.90227"
+     inkscape:cx="240.74324"
+     inkscape:cy="273.13739"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="1335"
+     inkscape:window-width="991"
      inkscape:window-height="698"
-     inkscape:window-x="5"
-     inkscape:window-y="9"
+     inkscape:window-x="373"
+     inkscape:window-y="19"
      inkscape:window-maximized="0"
      inkscape:showpageshadow="false" />
   <metadata
@@ -101,7 +101,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -194,22 +194,12 @@
        height="72.125"
        width="104.9091"
        clip-path="url(#clipPath3673)" />
-    <g
-       transform="translate(0,58.00002)"
-       id="g3405-1">
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3418-20"
-         d="m 0,552.36218 100,0 0,58 -100,0 z"
-         style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path3336-4"
-         d="M 63.398142,610.36218 13.39814,602.592 0,573.592 l 36.60186,-21.22982 50.000002,7.77007 13.398138,29 z"
-         style="fill:#008000;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0,610.3622 100,0 0,58 -100,0 z"
+       id="path3418-20"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
     <g
        transform="translate(100,58.00002)"
        id="g3405-8">
@@ -283,5 +273,10 @@
          d="M 63.398142,610.36218 13.39814,602.592 0,573.592 l 36.60186,-21.22982 50.000002,7.77007 13.398138,29 z"
          style="fill:#008000;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.5"
+       d="M 36.60156,610.3622 0,631.59267 l 13.39844,29 50,7.76953 L 100,647.13173 l -13.39844,-29 -50,-7.76953 z m 0.39258,2.08594 48.24023,7.49804 12.18555,26.3711 -34.41406,19.95898 -48.24024,-7.49609 -12.18554,-26.37109 34.41406,-19.96094 z"
+       id="path3774-9" />
   </g>
 </svg>

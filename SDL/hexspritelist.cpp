@@ -23,7 +23,7 @@ hexSpriteList::~hexSpriteList(){
 void hexSpriteList::fillHexVector(){
 
     for ( int i = 0; i < numSprites; i++ ){
-        hexes.push_back( hexclip(i,0) );
+        hexes.push_back( hexclip( i%5, floor(i/5) ) );
     }
 }
 
@@ -50,5 +50,11 @@ void hexSpriteList::render( vec<int> location, int n ){
 void hexSpriteList::render( int x, int y, int n ){
 
     hexSheet.render( x, y, renderer, &hexes[n].clipBox );
+
+}
+
+void hexSpriteList::render( hexVec H, int N, variables* V ){
+
+    hexSheet.render( V->origin.x +V->toSprite.x +H.e*V->e.x +H.ne*V->ne.x +H.nw*V->nw.x, V->origin.y +V->toSprite.y +H.e*V->e.y +H.ne*V->ne.y +H.nw*V->nw.y, renderer, &hexes[N].clipBox );
 
 }

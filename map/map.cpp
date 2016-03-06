@@ -50,13 +50,14 @@ void map::render(){
 
     for( int i = 0; i < width; i++ ){
         for( int j = 0; j < height; j++ ){
-         // Calculate the values added to place hex correctly on screen
-         vec<int> EAST = varPtr->e*hexes[i][j].hexLocation.e;
-         vec<int> NEAST= varPtr->ne*hexes[i][j].hexLocation.ne;
-         vec<int> NWEST= varPtr->nw*hexes[i][j].hexLocation.nw;
-         // Render a sprite for each hex at this location on screen
-         terrainSprites->render( varPtr->origin +varPtr->toSprite +EAST +NEAST + NWEST, hexes[i][j].terrain );
 
+            terrainSprites->render( hexes[i][j].hexLocation, hexes[i][j].terrain, varPtr );
+
+            if ( renderGridLines ){
+
+                terrainSprites->render( hexes[i][j].hexLocation, 5, varPtr );
+
+            }
         }
     }
 
@@ -89,4 +90,10 @@ void map::loadFromFile( const char* path ){
         mapfile.close();
     }
     else{ printf("Could not load map file"); }
+}
+
+void map::gridLineSwitch(){
+
+     renderGridLines = !renderGridLines;
+
 }

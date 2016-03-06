@@ -1,30 +1,35 @@
+// Creates a SDL clipbox from co-ordinates (on sprite sheet) and static sprite dimensions
+
 #ifndef HEXCLIP_H
 #define HEXCLIP_H
 
+// Libraries
 #include<SDL2/SDL.h>
 #include<SDL_image.h>
 
-class hexclip
-{
+class hexclip{
+
     public:
 
         hexclip();
 
-        hexclip( int, int );
+        hexclip( int n, int m );
 
-        ~hexclip();
+        // Hex sprites have a standard width
+        static int clipWidth;
 
-        static int clipWidth;   // Hex's have a standard width
+        // Hex sprites have a standard height
+        static int clipHeight;
 
-        static int clipHeight;  // Hex's have a standard height
-
-        SDL_Rect clipBox;  // clipping box for sprite sheet
+        // clipping box for sprite sheet
+        SDL_Rect clipBox;
 
         // Set clipbox values
-        void setClipBox( int, int );
+        void setClipBox( int n, int m );
 
     protected:
     private:
+
 };
 
 #endif // HEXCLIP_H
