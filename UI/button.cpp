@@ -17,7 +17,7 @@ button::~button(){
 void button::loadText( std::string t ){
 
     text.loadFromRenderedText( t, {0,0,0}, renderScreen->renderer, renderScreen->screenFontSmall );
-    // Vector to contain the text dimensions
+    // Vector contains the text dimensions
     vec<int> textDimensions;
     SDL_QueryTexture( text.texture, NULL, NULL, &textDimensions.x, &textDimensions.y );
     // Set button dimensions at text dimensions plus padding

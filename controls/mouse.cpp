@@ -1,13 +1,13 @@
 #include "mouse.h"
 
-mouse::mouse( variables* V, hexSpriteList* S, vec<int> sSize, vec<int> mMin, vec<int> mMax ){
+mouse::mouse( variables* V, hexSpriteList* S, vec<int> sSize, vec<int> mMin, vec<int> mMax, vec<int> MS ){
 
-    varPtr      = V;
-    sptPtr      = S;
-    screenSize  = sSize;
-    mapMin      = mMin;
-    mapMax      = mMax;
-
+    varPtr          = V;
+    sptPtr          = S;
+    screenSize      = sSize;
+    mapMin          = mMin;
+    mapMax          = mMax;
+    mapDimensions   = MS;
 }
 
 void mouse::updatePosition(){
@@ -60,9 +60,11 @@ void mouse::convertToHex(){
 
 void mouse::renderHex( int spriteNumber ){
 
-    // Render the appropriately numbered sprite
-    sptPtr->render( co_ords.hexLocation, spriteNumber, varPtr );
-
+    // Check if mouse is on actual map grid and
+    // render the appropriately numbered sprite
+    if( co_ords.gridLocation.x >= 0 && co_ords.gridLocation.y >= 0 && co_ords.gridLocation < mapDimensions ){
+        sptPtr->render( co_ords.hexLocation, spriteNumber );
+    }
 }
 
 void mouse::printCoOrds(){

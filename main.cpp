@@ -21,6 +21,7 @@
 #include "textsprite.h"
 #include "vert_menu.h"
 #include "mouse.h"
+#include "infsquad.h"
 
 // Declare SDL control functions (SDL_Controls.cpp)
 bool startSDL();
@@ -45,18 +46,18 @@ int main ( int argc, char* args[] )
             screen mainScreen;
 
             // Create screen
-            mainScreen.init("SIM", 800, 400);
-
-            // Create hexlists
-            hexSpriteList terrain( "sprites/terrain_hex.png", 6, mainScreen.renderer );
-            hexSpriteList units( "sprites/unit_hex.png", 4, mainScreen.renderer );
-            hexSpriteList selectSprite( "sprites/select.png", 2, mainScreen.renderer );
-
-            // Load desired font to main screen
-            mainScreen.loadFonts("sprites/BOMBARD.ttf");
+            mainScreen.init("WWI SIM v0.1", 800, 400);
 
             // Initialize hex variables for given sprite width and origin
             variables vars( vec<int>(0,200), hexclip::clipWidth );
+
+            // Create lists of hexsprites from sprite files
+            hexSpriteList terrain( "sprites/terrain_hex.png", 6, mainScreen.renderer, &vars );
+            hexSpriteList units( "sprites/unit_hex.png", 4, mainScreen.renderer, &vars );
+            hexSpriteList selectSprite( "sprites/select.png", 2, mainScreen.renderer, &vars );
+
+            // Load desired font to main screen
+            mainScreen.loadFonts("sprites/BOMBARD.ttf");
 
             // Make title text sprite (white)
             textSprite title;
@@ -77,11 +78,11 @@ int main ( int argc, char* args[] )
             testMap.loadFromFile("data/testmap.txt");
 
             // Create mouse object
-            mouse mouseA( &vars, &selectSprite, mainScreen.dimensions, testMap.pixelMin, testMap.pixelMax );
+            mouse mouseA( &vars, &selectSprite, mainScreen.dimensions, testMap.pixelMin, testMap.pixelMax, vec<int>( testMap.width, testMap.height ) );
 
 
             // Make a test menu
-            vert_menu testMenu( "Test Menu", &mainScreen );
+            vert_menu testMenu("Test Menu", &mainScreen );
             testMenu.addButton("Move Menu to corner");
             testMenu.addButton("Move Menu back");
             testMenu.addButton("Grid Lines On/Off");
@@ -91,6 +92,9 @@ int main ( int argc, char* args[] )
             testMenu.buttonList[0].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(10,10) );
             testMenu.buttonList[1].click = std::bind( &vert_menu::setLocation, &testMenu, vec<int>(50,150) );
             testMenu.buttonList[2].click = std::bind( &map::gridLineSwitch, &testMap );
+
+            // Units
+            infSquad testUnit( hexVec(0,0,0), 1 );
 
             //================= Main application loop starts here ======================//
 
@@ -143,6 +147,8 @@ int main ( int argc, char* args[] )
 
                 mouseA.renderHex(1); // Render mouse hex
                 mouseA.renderHex(0); // Render mouse hex border
+
+                testUnit.render( &units );
 
                 // Render title
                 title.render( mainScreen.dimensions.x -50 -title.width, 50, mainScreen.renderer );

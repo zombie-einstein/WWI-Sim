@@ -20,7 +20,7 @@ class hexSpriteList{
     public:
 
         // Initialize with spriteSheet path and number of sprites to load
-        hexSpriteList( std::string path, int n, SDL_Renderer* );
+        hexSpriteList( std::string path, int n, SDL_Renderer*, variables* V );
 
         ~hexSpriteList();
 
@@ -33,8 +33,13 @@ class hexSpriteList{
         // Renderer to be used
         SDL_Renderer* renderer;
 
+        // Sprite texture sheet
         spriteSheet hexSheet;
 
+        // Point to set of variables use which define hex to screen
+        variables* hexVars;
+
+        // Vector containing SDL clipboxes for wach sprite
         std::vector<hexclip> hexes;
 
         // Generate the list of hex's
@@ -50,7 +55,7 @@ class hexSpriteList{
         void render( int x, int y, int hexNum );
 
         // Render a specific hex (from a hex grid location relative to the origin)
-        void render( hexVec hexLocation, int hexNum, variables* vars );
+        void render( hexVec hexLocation, int hexNum );
 
     protected:
 

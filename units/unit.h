@@ -16,7 +16,6 @@ class unit: public hex{
 
         unit( hexVec );
 
-
     protected:
     private:
 

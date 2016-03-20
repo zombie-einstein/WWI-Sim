@@ -1,6 +1,6 @@
 #include "hexspritelist.h"
 
-hexSpriteList::hexSpriteList( std::string path, int n, SDL_Renderer* r ){
+hexSpriteList::hexSpriteList( std::string path, int n, SDL_Renderer* r, variables* V ){
 
     // Set number of hexes to use
     numSprites  = n;
@@ -12,6 +12,8 @@ hexSpriteList::hexSpriteList( std::string path, int n, SDL_Renderer* r ){
     renderer    = r;
     // Load spritesheet assocaited with these hexes to renderer
     loadMedia();
+    // Point to hex to screen variables
+    hexVars = V;
 }
 
 hexSpriteList::~hexSpriteList(){
@@ -53,8 +55,8 @@ void hexSpriteList::render( int x, int y, int n ){
 
 }
 
-void hexSpriteList::render( hexVec H, int N, variables* V ){
+void hexSpriteList::render( hexVec H, int N ){
 
-    hexSheet.render( V->origin.x +V->toSprite.x +H.e*V->e.x +H.ne*V->ne.x +H.nw*V->nw.x, V->origin.y +V->toSprite.y +H.e*V->e.y +H.ne*V->ne.y +H.nw*V->nw.y, renderer, &hexes[N].clipBox );
+    hexSheet.render( hexVars->origin.x +hexVars->toSprite.x +H.e*hexVars->e.x +H.ne*hexVars->ne.x +H.nw*hexVars->nw.x, hexVars->origin.y +hexVars->toSprite.y +H.e*hexVars->e.y +H.ne*hexVars->ne.y +H.nw*hexVars->nw.y, renderer, &hexes[N].clipBox );
 
 }

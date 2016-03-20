@@ -51,11 +51,11 @@ void map::render(){
     for( int i = 0; i < width; i++ ){
         for( int j = 0; j < height; j++ ){
 
-            terrainSprites->render( hexes[i][j].hexLocation, hexes[i][j].terrain, varPtr );
+            terrainSprites->render( hexes[i][j].hexLocation, hexes[i][j].terrain );
 
             if ( renderGridLines ){
 
-                terrainSprites->render( hexes[i][j].hexLocation, 5, varPtr );
+                terrainSprites->render( hexes[i][j].hexLocation, 5 );
 
             }
         }

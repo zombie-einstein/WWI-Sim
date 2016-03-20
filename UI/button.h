@@ -30,7 +30,6 @@ class button: public UI_element{
         textSprite text;
 
         // Declare pointer to action of button
-        //void (*click)();
         std::function<void()> click;
 
         // Load an appropriatte text texture and resize the button
@@ -47,6 +46,7 @@ class button: public UI_element{
 
     protected:
     private:
+
 };
 
 #endif // BUTTON_H

@@ -31,6 +31,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="UI" />
+					<Add directory="units" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -77,6 +78,8 @@
 		<Unit filename="maths/hexvec.h" />
 		<Unit filename="maths/variables.h" />
 		<Unit filename="maths/vec.h" />
+		<Unit filename="units/infsquad.cpp" />
+		<Unit filename="units/infsquad.h" />
 		<Unit filename="units/unit.cpp" />
 		<Unit filename="units/unit.h" />
 		<Extensions>

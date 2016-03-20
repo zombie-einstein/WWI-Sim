@@ -198,7 +198,7 @@
 	<iostream>
 	<hexvec.h>
 
-1457230525 source:/home/jordan/Projects/WWI_sim_SDL/main.cpp
+1458506346 source:/home/jordan/Projects/WWI_sim_SDL/main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<iostream>
@@ -215,6 +215,7 @@
 	"textsprite.h"
 	"vert_menu.h"
 	"mouse.h"
+	"infsquad.h"
 
 1457224727 /home/jordan/Projects/WWI_sim_SDL/map/map.h
 	<vector>
@@ -234,7 +235,7 @@
 
 1457226929 /home/jordan/Projects/WWI_sim_SDL/maths/hexvec.h
 
-1457228614 /home/jordan/Projects/WWI_sim_SDL/SDL/hexspritelist.h
+1458503221 /home/jordan/Projects/WWI_sim_SDL/SDL/hexspritelist.h
 	<vector>
 	<string>
 	"spriteSheet.h"
@@ -268,7 +269,7 @@
 	<SDL_ttf.h>
 	<spriteSheet.h>
 
-1457224121 source:/home/jordan/Projects/WWI_sim_SDL/map/map.cpp
+1458503434 source:/home/jordan/Projects/WWI_sim_SDL/map/map.cpp
 	"map.h"
 
 1457126705 source:/home/jordan/Projects/WWI_sim_SDL/map/maphex.cpp
@@ -288,7 +289,7 @@
 1457228249 source:/home/jordan/Projects/WWI_sim_SDL/SDL/hexclip.cpp
 	"hexclip.h"
 
-1457223948 source:/home/jordan/Projects/WWI_sim_SDL/SDL/hexspritelist.cpp
+1458503317 source:/home/jordan/Projects/WWI_sim_SDL/SDL/hexspritelist.cpp
 	"hexspritelist.h"
 
 1457229053 source:/home/jordan/Projects/WWI_sim_SDL/SDL/screen.cpp
@@ -307,7 +308,7 @@
 1457230219 source:/home/jordan/Projects/WWI_sim_SDL/units/unit.cpp
 	"unit.h"
 
-1457230303 /home/jordan/Projects/WWI_sim_SDL/units/unit.h
+1458504074 /home/jordan/Projects/WWI_sim_SDL/units/unit.h
 	"hex.h"
 
 1457126689 source:/home/jordan/Projects/WWI_sim_SDL/UI/ui_element.cpp
@@ -317,10 +318,10 @@
 	"screen.h"
 	"vec.h"
 
-1457126720 source:/home/jordan/Projects/WWI_sim_SDL/UI/button.cpp
+1458476621 source:/home/jordan/Projects/WWI_sim_SDL/UI/button.cpp
 	"button.h"
 
-1457230390 /home/jordan/Projects/WWI_sim_SDL/UI/button.h
+1458476479 /home/jordan/Projects/WWI_sim_SDL/UI/button.h
 	<SDL2/SDL.h>
 	<string>
 	<functional>
@@ -343,10 +344,10 @@
 	"vert_menu.h"
 	<iostream>
 
-1457224349 source:/home/jordan/Projects/WWI_sim_SDL/controls/mouse.cpp
+1458506282 source:/home/jordan/Projects/WWI_sim_SDL/controls/mouse.cpp
 	"mouse.h"
 
-1457211489 /home/jordan/Projects/WWI_sim_SDL/controls/mouse.h
+1458506126 /home/jordan/Projects/WWI_sim_SDL/controls/mouse.h
 	<SDL2/SDL.h>
 	<math.h>
 	"vec.h"
@@ -357,4 +358,11 @@
 1457226153 /home/jordan/Projects/WWI_sim_SDL/maths/variables.h
 	<math.h>
 	<vec.h>
+
+1458504464 source:/home/jordan/Projects/WWI_sim_SDL/units/infsquad.cpp
+	"infsquad.h"
+
+1458504384 /home/jordan/Projects/WWI_sim_SDL/units/infsquad.h
+	"unit.h"
+	"hexspritelist.h"
 

@@ -12,7 +12,7 @@ class mouse{
 
     public:
 
-        mouse( variables* V, hexSpriteList* S, vec<int> sSize, vec<int> mMin, vec<int> mMax  );
+        mouse( variables* V, hexSpriteList* S, vec<int> sSize, vec<int> mMin, vec<int> mMax, vec<int> MS  );
 
         // Mouse location on screen
         vec<int> screenLocation;
@@ -40,6 +40,9 @@ class mouse{
 
         // Map maximum dimension on screen
         vec<int> mapMax;
+
+        // Map dimensions (i.e. width and height in hexs)
+        vec<int> mapDimensions;
 
         // update mouse position from SDL
         void updatePosition();
